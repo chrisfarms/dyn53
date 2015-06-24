@@ -26,9 +26,9 @@ docker run --rm --name dyn53 \
 	chrisfarms/dyn53
 ```
 
-## Example fleet/systemd unit
+## Example systemd unit
 
-Since I use this on a home CoreOS cluster, here's the fleet unit I use as an example.
+Since this would most commonly be run as a service, here's an example systemd unit.
 
 ```
 [Unit]
@@ -37,18 +37,18 @@ After=docker.service
 
 [Service]
 ExecStartPre=-/usr/bin/docker rm -f dyn53
-ExecStart=/usr/bin/docker run \
-	--rm \
+ExecStart=/usr/bin/docker run --rm -t \
 	--name dyn53 \
 	-e DYN53_DOMAIN=<YOUR_DOMAIN> \
 	-e AWS_ACCESS_KEY_ID=<YOUR_KEY> \
 	-e AWS_SECRET_ACCESS_KEY=<YOUR_SECRET> \
-	chrisfarms/dyn53
-ExecStop=-/usr/bin/docker pull chrisfarms/dyn53
-TimeoutStartSec=120
-TimeoutStopSec=120
+chrisfarms/dyn53
+ExecStop=-/usr/bin/docker stop dyn53
+TimeoutStartSec=0
+KillMode=none
 Restart=always
 RestartSec=10s
+StartLimitInterval=0
 ```
 
 ## Building
