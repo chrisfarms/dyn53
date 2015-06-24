@@ -8,7 +8,7 @@ It polls various free "what's my IP" type services to discover the IP address.
 
 * Docker
 
-## Usage (docker)
+## Usage
 
 Options are passed via environment variables. You will need to provide:
 
@@ -19,9 +19,7 @@ Options are passed via environment variables. You will need to provide:
 Docker run example:
 
 ```
-docker run \
-	-it --rm \
-	--name dyn53 \
+docker run --rm --name dyn53 \
 	-e DYN53_DOMAIN=<YOUR_DOMAIN> \
 	-e AWS_ACCESS_KEY_ID=<YOUR_KEY> \
 	-e AWS_SECRET_ACCESS_KEY=<YOUR_SECRET> \
